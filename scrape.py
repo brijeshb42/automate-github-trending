@@ -88,7 +88,26 @@ def get_latest_trending(lang=None):
 def send_mail(repos=[]):
     env = Environment(loader=PackageLoader(__name__, './'))
     template = env.get_template("mailer.html")
-    html = template.render(repos=repos)
+    script = {
+      "@context": "http://schema.org",
+      "@type": "EventReservation",
+      "reservationNumber": "IO12345",
+      "underName": {
+        "@type": "Person",
+        "name": "Brijesh Bittu"
+      },
+      "reservationStatus": "confirmed",
+      "reservationFor": {
+        "@type": "Event",
+        "name": "Github Trending Repositories",
+        "startDate": datetime.datetime.now().isoformat(),
+        "location": {
+          "@type": "Place",
+          "name": "Github.com"
+        }
+      }
+    }
+    html = template.render(repos=repos, script=script)
     with open("output.html", "w") as fil:
         fil.write(html.encode('utf-8'))
     send_newsletter(html=html)
