@@ -10,22 +10,73 @@
         padding: 0;
     }
     li a {
-        border-bottom: 1px solid #ccc;
         color: #347ED2;
         display: block;
         padding: 10px 20px;
         text-decoration: none;
     }
-    li a h3, li a h4, li a h5 {
+    li a h3, li a p {
         margin: 4px 0;
     }
     li .repo-name {
         color: #444;
     }
+    li .repo-name span {
+        color: #08c;
+    }
     li .repo-desc {
-        color: #0082C3;
+        color: #111;
     }
     li .repo-meta {}
+    .card {
+      padding:1.5rem;
+      box-shadow:0 1px 2px #aaa;
+      background:white;
+      margin:0 1rem 1rem;
+      border-radius:3px;
+      user-select:none;
+      animation:fly-in-from-left .5s 1s ease both;
+      transform-origin:top left;
+    }
+    .card:nth-child(even){
+      animation-name:fly-in-from-right;
+      animation-delay:1.1s;
+     transform-origin:top right;
+    }
+
+    @keyframes fly-in-from-left {
+      from {
+        transform:translateY(15rem) rotate(15deg);
+        opacity:0;
+      }
+    }
+
+    @keyframes fly-in-from-right {
+      from {
+        transform:translateY(15rem) rotate(-15deg);
+        opacity:0;
+      }
+    }
+
+    .card:after {
+      position:absolute;
+      font-size:.9rem;
+      top:1.5rem;
+      right:1rem;
+      content:"i";
+      border:thin solid gray;
+      color:gray;
+      width:1rem;
+      line-height:1rem;
+      text-align:center;
+      border-radius:50%;
+      pointer-events:none;
+    }
+
+    h1 {
+      font-size:2rem;
+      font-weight:200;
+    }
     </style>
 </head>
 <body>
@@ -33,15 +84,15 @@
 <h1>Today's trending repositories</h1>
 <ul>
 {%- for repo in repos -%}
-<li>
+<li class="card">
 {%- if 'name' in repo -%}
     <a href="https://github.com/{{ repo['name'] }}">
     <h3 class="repo-name">
-        {{ repo['name'] }}
+        <span>{{ repo['name'] }}</span>
         {%- if 'language' in repo -%}{{ ' - '+repo['language'] }}{%- endif -%}
-        {%- if 'stars' in repo -%}{{ ' - '+repo['stars'] }} stars{%- endif -%}
+        {%- if 'stars' in repo -%}{{ ' - '+repo['stars'] }} &#10025;{%- endif -%}
     </h3>
-    {%- if 'description' in repo -%}<h4 class="repo-desc">{{repo['description']}}</h4>{%- endif -%}
+    {%- if 'description' in repo -%}<p class="repo-desc">{{repo['description']}}</p>{%- endif -%}
     </a>
 {%- endif -%}
 </li>

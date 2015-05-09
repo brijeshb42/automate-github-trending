@@ -99,5 +99,4 @@ def get_data_send_mail():
 
 
 if __name__ == "__main__":
-    t = get_latest_trending()
-    send_mail(t)
+    get_data_send_mail()
