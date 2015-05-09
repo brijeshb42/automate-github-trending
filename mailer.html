@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Github Trending Repos - Bitwiser.in</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    li a {
+        border-bottom: 1px solid #ccc;
+        color: #347ED2;
+        display: block;
+        padding: 10px 20px;
+        text-decoration: none;
+    }
+    li a h3, li a h4, li a h5 {
+        margin: 4px 0;
+    }
+    li .repo-name {
+        color: #444;
+    }
+    li .repo-desc {
+        color: #0082C3;
+    }
+    li .repo-meta {}
+    </style>
+</head>
+<body>
+{%- if repos is defined and repos|length > 0 -%}
+<h1>Today's trending repositories</h1>
+<ul>
+{%- for repo in repos -%}
+<li>
+{%- if 'name' in repo -%}
+    <a href="https://github.com/{{ repo['name'] }}">
+    <h3 class="repo-name">
+        {{ repo['name'] }}
+        {%- if 'language' in repo -%}{{ ' - '+repo['language'] }}{%- endif -%}
+        {%- if 'stars' in repo -%}{{ ' - '+repo['stars'] }} stars{%- endif -%}
+    </h3>
+    {%- if 'description' in repo -%}<h4 class="repo-desc">{{repo['description']}}</h4>{%- endif -%}
+    </a>
+{%- endif -%}
+</li>
+{%- endfor -%}
+</ul>
+{%- endif -%}
+</body>
+</html>
