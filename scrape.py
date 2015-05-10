@@ -6,7 +6,7 @@ import mailchimp
 from jinja2 import Environment, PackageLoader
 
 from config import *
-    
+
 api_object = mailchimp.Mailchimp(MAIL_CHIMP_KEY)
 
 URL_TRENDING = "https://github.com/trending"
