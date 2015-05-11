@@ -4,57 +4,45 @@
     <title>Github Trending Repos - Bitwiser.in</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
+    body {
+      font-family: "Lucida Grande", sans-serif;
+    }
     ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
+      margin: 0;
+      padding: 0;
+      list-style: none;
     }
-    li a {
-        color: #347ED2;
+    a {
+      color: #111;
+      text-decoration: none;
+    }
+    h3, h4, h5, h6, p {
+      margin: 4px 0px;
+    }
+    li.card {
+      border: 1px solid #0A59C0;
+      margin-bottom: 10px;
+      background-color: #fff;
+      color: #111;
+    }
+    .holder {
+        padding: 20px;
+        padding-bottom: 0;
         display: block;
-        padding: 10px 20px;
-        text-decoration: none;
+        overflow: auto;
     }
-    li a h3, li a p {
-        margin: 4px 0;
+    .holder img {
+        float: left;
     }
-    li .repo-name {
-        color: #444;
+    .holder .data {
+        float: left;
+        /*margin-left: 10px;*/
     }
-    li .repo-name span {
-        color: #08c;
+    .holder .data h3 {
+      color: #08c;
     }
-    li .repo-desc {
-        color: #111;
-    }
-    li .repo-meta {}
-    .card {
-      padding:1.5rem;
-      box-shadow:0 1px 2px #aaa;
-      border: 1px solid #ccc;
-      background:white;
-      margin: 0 1rem 0.2rem;
-      border-radius:3px;
-    }
-
-    .card:after {
-      position:absolute;
-      font-size:.9rem;
-      top:1.5rem;
-      right:1rem;
-      content:"i";
-      border:thin solid gray;
-      color:gray;
-      width:1rem;
-      line-height:1rem;
-      text-align:center;
-      border-radius:50%;
-      pointer-events:none;
-    }
-
-    h1 {
-      font-size:2rem;
-      font-weight:200;
+    .repo-desc {
+      margin: 0 0 10px 10px;
     }
     </style>
     <script type="application/ld+json">{{script}}</script>
@@ -64,18 +52,18 @@
 <h1>Today's trending repositories</h1>
 <ul>
 {%- for repo in repos -%}
-<li class="card">
 {%- if 'name' in repo -%}
-    <a href="https://github.com/{{ repo['name'] }}">
-    <h3 class="repo-name">
-        <span>{{ repo['name'] }}</span>
-        {%- if 'language' in repo -%}{{ ' - '+repo['language'] }}{%- endif -%}
-        {%- if 'stars' in repo -%}{{ ' - '+repo['stars'] }} &#10025;{%- endif -%}
-    </h3>
-    {%- if 'description' in repo -%}<p class="repo-desc">{{repo['description']}}</p>{%- endif -%}
+<li class="card">
+    <a class="holder" href="https://github.com/{{ repo['name'] }}">
+    <div class="data">
+        <h3>{{ repo['name'] }}</h3>
+        <h4>{%- if 'language' in repo -%}{{ repo['language'] }}{%- endif -%}
+        {%- if 'stars' in repo -%}{{ ' - '+repo['stars'] }} &#10025;{%- endif -%}</h4>
+    </div>
     </a>
-{%- endif -%}
+    {%- if 'description' in repo -%}<p class="repo-desc">{{repo['description']}}</p>{%- endif -%}
 </li>
+{%- endif -%}
 {%- endfor -%}
 </ul>
 {%- endif -%}
