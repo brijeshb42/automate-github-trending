@@ -79,8 +79,13 @@ def get_latest_trending(lang=None):
                 " ".join(meta[0].contents[0].strip().encode("ascii", "ignore")
                          .split())).replace(" Built by", "")
             meta1 = meta.split()
-            res["language"] = meta1[0]
-            res["stars"] = meta1[1]
+            if len(meta1) == 4:
+                res["language"] = meta1[0]
+                res["stars"] = meta1[1]
+            if len(meta1) == 3:
+                res["stars"] = meta1[0]
+            if len(meta1) == 1:
+                res["language"] = meta1[0]
         repos.append(res)
     return repos
 

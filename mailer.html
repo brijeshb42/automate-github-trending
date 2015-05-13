@@ -54,7 +54,7 @@
 {%- for repo in repos -%}
 {%- if 'name' in repo -%}
 <li class="card">
-    <a class="holder" href="https://github.com/{{ repo['name'] }}">
+    <a class="holder" href="https://github.com{{ repo['name'] }}">
     <div class="data">
         <h3>{{ repo['name'] }}</h3>
         <h4>{%- if 'language' in repo -%}{{ repo['language'] }}{%- endif -%}
